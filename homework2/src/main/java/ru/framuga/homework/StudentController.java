@@ -31,7 +31,7 @@ public class StudentController {
         return studentRepository.getByName(name);
     }
 
-    @PutMapping("/create")
+    @PutMapping
     public Student createStudent(@RequestBody Student student){
         studentRepository.addStudent(student);
         return student;
