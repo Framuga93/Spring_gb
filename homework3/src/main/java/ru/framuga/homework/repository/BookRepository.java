@@ -32,6 +32,10 @@ public class BookRepository {
       .orElse(null);
   }
 
+  public List<Book> getAllBooks(){
+    return books;
+  }
+
   public void removeBook(long id){
     books.remove(getBookById(id));
   }

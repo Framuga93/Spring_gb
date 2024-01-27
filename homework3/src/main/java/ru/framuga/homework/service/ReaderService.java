@@ -16,8 +16,10 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ReaderService {
 
-    private final ReaderRepository readerRepository;
     private final IssueRepository issueRepository;
+    private final ReaderRepository readerRepository;
+    private final BookRepository bookRepository;
+
 
     public List<Issue> readerIssue(Reader reader){
         return issueRepository.getAllIssue().stream()
@@ -25,6 +27,27 @@ public class ReaderService {
                 .toList();
     }
 
+    public List<Reader> readerList(){
+        return readerRepository.getAllReaders();
+    }
 
+    public Reader findReaderById(long id){
+        return readerRepository.getReaderById(id);
+    }
+
+    public List<Book> readerBooks(long id){
+        return issueRepository.getAllIssue().stream()
+                .filter(it -> Objects.equals(it.getReaderId(), id))
+                .map(issue -> bookRepository.getBookById(issue.getBookId()))
+                .toList();
+    }
+
+    public void removeReaderFromRep(long id){
+        readerRepository.removeReader(id);
+    }
+
+    public void addReaderToRep(Reader requestReader){
+        readerRepository.addReader(requestReader);
+    }
 
 }
