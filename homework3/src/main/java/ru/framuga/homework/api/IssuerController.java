@@ -22,12 +22,7 @@ public class IssuerController {
 
 
   private final IssuerService service;
-  private final IssueRepository issueRepository;
 
-//  @PutMapping
-//  public void returnBook(long issueId) {
-//    // найти в репозитории выдачу и проставить ей returned_at
-//  }
 
   @PostMapping
   public ResponseEntity<Issue> issueBook(@RequestBody IssueRequest request) {
@@ -45,12 +40,12 @@ public class IssuerController {
 
   @PutMapping("/{id}")
   public void returnBook(@PathVariable long id){
-    issueRepository.get(id).setReturnedAt(LocalDateTime.now());
+    service.findIssueById(id).setReturnedAt(LocalDateTime.now());
   }
 
   @GetMapping("/{id}")
   public Issue getIssue(@PathVariable long id){
-    return issueRepository.get(id);
+    return service.findIssueById(id);
   }
 
 

@@ -36,8 +36,6 @@ public class IssuerService {
         if (readerRepository.getReaderById(request.getReaderId()) == null) {
             throw new NoSuchElementException("Не найден читатель с идентификатором \"" + request.getReaderId() + "\"");
         }
-        System.out.println(issueRepository.getAllIssue());
-        // можно проверить, что у читателя нет книг на руках (или его лимит не превышает в Х книг)
         if (issueRepository.getAllIssue().stream()
                 .filter(issue -> issue.getReturnedAt() == null)
                 .map(Issue::getReaderId)
@@ -49,6 +47,10 @@ public class IssuerService {
         issue = new Issue(request.getBookId(), request.getReaderId());
         issueRepository.save(issue);
         return issue;
+    }
+
+    public Issue findIssueById(long id){
+        return issueRepository.get(id);
     }
 
     public List<Issue> issueList(){
