@@ -4,18 +4,10 @@ import lombok.SneakyThrows;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.web.bind.annotation.RestController;
 import ru.framuga.homework.model.Book;
 import ru.framuga.homework.model.Reader;
 import ru.framuga.homework.repository.BookRepositoryJPA;
-import ru.framuga.homework.repository.GenerateTestData;
 import ru.framuga.homework.repository.ReaderRepositoryJPA;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class Application {
