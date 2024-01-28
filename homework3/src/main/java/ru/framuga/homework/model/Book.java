@@ -1,19 +1,17 @@
 package ru.framuga.homework.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
+@Entity
+@Table(name = "books")
 @Data
-@RequiredArgsConstructor
 public class Book {
 
-  public static long sequence = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private final long id;
-  private final String name;
-
-  public Book(String name) {
-    this(sequence++, name);
-  }
-
+    @Column(name = "name")
+    private String name;
 }

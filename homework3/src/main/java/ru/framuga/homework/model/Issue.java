@@ -1,34 +1,34 @@
 package ru.framuga.homework.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
 /**
  * Запись о факте выдачи книги (в БД)
  */
+@Entity
+@Table(name = "issues")
 @Data
-// @Entity
 public class Issue {
 
-  public static long sequence = 1L;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  private final long id;
-  private final long bookId;
-  private final long readerId;
+  @Column(name = "bookId")
+  private Long bookId;
 
-  /**
-   * Дата выдачи
-   */
-  private final LocalDateTime issueAt;
+  @Column(name = "readerId")
+  private Long readerId;
+
+  @Column(name = "issueAt")
+  private LocalDateTime issueAt;
+
+  @Column(name = "returnedAt")
   private LocalDateTime returnedAt;
 
-  public Issue(long bookId, long readerId) {
-    this.id = sequence++;
-    this.bookId = bookId;
-    this.readerId = readerId;
-    this.issueAt = LocalDateTime.now();
-    this.returnedAt = null;
-  }
-
 }
+

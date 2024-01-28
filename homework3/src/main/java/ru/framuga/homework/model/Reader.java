@@ -1,23 +1,22 @@
 package ru.framuga.homework.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+@Entity
+@Table(name = "reader")
 @Data
-@RequiredArgsConstructor
 public class Reader {
 
-  public static long sequence = 1L;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  private final long id;
-  private final String name;
-  private List<Book> books;
+  @Column
+  private String name;
 
-  public Reader(String name) {
-    this(sequence++, name);
-  }
-
-
+  // List<Book>
 }

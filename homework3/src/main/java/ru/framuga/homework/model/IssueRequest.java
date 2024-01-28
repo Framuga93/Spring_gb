@@ -1,4 +1,4 @@
-package ru.framuga.homework.api;
+package ru.framuga.homework.model;
 
 import lombok.Data;
 

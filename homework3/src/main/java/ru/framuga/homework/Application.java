@@ -1,7 +1,21 @@
 package ru.framuga.homework;
 
+import lombok.SneakyThrows;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.web.bind.annotation.RestController;
+import ru.framuga.homework.model.Book;
+import ru.framuga.homework.model.Reader;
+import ru.framuga.homework.repository.BookRepositoryJPA;
+import ru.framuga.homework.repository.GenerateTestData;
+import ru.framuga.homework.repository.ReaderRepositoryJPA;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class Application {
@@ -21,10 +35,57 @@ public class Application {
 	 * 		</dependency>
 	 */
 
-	// TODO: 21.01.2024 EXEPTIONS add log
+	// TODO: 21.01.2024 EXEPTIONS
+	// TODO: 27.01.2024 add log
 
+
+
+	@SneakyThrows
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+		BookRepositoryJPA bookRepository = context.getBean(BookRepositoryJPA.class);
+		ReaderRepositoryJPA readerRepository = context.getBean(ReaderRepositoryJPA.class);
 
+
+		for (int i = 1; i < 10; i++) {
+			Reader reader = new Reader();
+			reader.setName("Reader #"+ i);
+			readerRepository.save(reader);
+		}
+
+		for (int i = 1; i < 10; i++) {
+			Book book = new Book();
+			book.setName("Book #"+ i);
+			bookRepository.save(book);
+		}
+
+
+		/**
+		 *
+		 * JDBC
+		 //		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+
+		 //		DataSource dataSource = context.getBean(DataSource.class);
+		 //
+		 //		try(Connection connection = dataSource.getConnection()){
+		 //			try(Statement statement = connection.createStatement()){
+		 //				statement.execute("create table if not exists test1(id bigint, name varchar(512))");
+		 //			}
+		 //
+		 //			try(Statement statement = connection.createStatement()){
+		 //				statement.execute("insert into test1(id, name) values(1,'Alex')");
+		 //			}
+		 //
+		 //			try(Statement statement = connection.createStatement()){
+		 //				ResultSet resultSet = statement.executeQuery("select id, name from test1");
+		 //				while (resultSet.next()){
+		 //					System.out.println(resultSet.getInt("id"));
+		 //					System.out.println(resultSet.getString("name"));
+		 //				}
+		 //			}
+		 //		}
+		 //
+		 //
+		 */
+	}
 }

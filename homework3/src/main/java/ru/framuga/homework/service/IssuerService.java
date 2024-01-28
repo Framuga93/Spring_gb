@@ -1,18 +1,17 @@
 package ru.framuga.homework.service;
 
+import jakarta.persistence.Column;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.framuga.homework.api.IssueRequest;
+import ru.framuga.homework.model.IssueRequest;
 import ru.framuga.homework.model.Book;
 import ru.framuga.homework.model.Issue;
 import ru.framuga.homework.model.Reader;
-import ru.framuga.homework.repository.BookRepository;
-import ru.framuga.homework.repository.IssueRepository;
-import ru.framuga.homework.repository.ReaderRepository;
+import ru.framuga.homework.repository.*;
 
 
-import javax.naming.LimitExceededException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -21,22 +20,22 @@ import java.util.NoSuchElementException;
 public class IssuerService {
 
     // спринг это все заинжектит
-    private final BookRepository bookRepository;
-    private final ReaderRepository readerRepository;
-    private final IssueRepository issueRepository;
+    private final BookRepositoryJPA bookRepository;
+    private final ReaderRepositoryJPA readerRepository;
+    private final IssueRepositoryJPA issueRepository;
 
     @Value("${application.max-allowed-book}")
     private int maxBookCapacity;
 
     Issue issue;
     public Issue issue(IssueRequest request) {
-        if (bookRepository.getBookById(request.getBookId()) == null) {
+        if (bookRepository.findBookById(request.getBookId()) == null) {
             throw new NoSuchElementException("Не найдена книга с идентификатором \"" + request.getBookId() + "\"");
         }
-        if (readerRepository.getReaderById(request.getReaderId()) == null) {
+        if (readerRepository.findReaderById(request.getReaderId()) == null) {
             throw new NoSuchElementException("Не найден читатель с идентификатором \"" + request.getReaderId() + "\"");
         }
-        if (issueRepository.getAllIssue().stream()
+        if (issueRepository.findAll().stream()
                 .filter(issue -> issue.getReturnedAt() == null)
                 .map(Issue::getReaderId)
                 .filter(it -> it.equals(request.getReaderId()))
@@ -44,24 +43,35 @@ public class IssuerService {
                 .size() >= maxBookCapacity) {
             throw new RuntimeException("У читателя превышен лимит книг");
         }
-        issue = new Issue(request.getBookId(), request.getReaderId());
+        issue = new Issue();
+        issue.setBookId(request.getBookId());
+        issue.setReaderId(request.getReaderId());
+        issue.setIssueAt(LocalDateTime.now());
         issueRepository.save(issue);
         return issue;
     }
 
     public Issue findIssueById(long id){
-        return issueRepository.get(id);
+        return issueRepository.findIssueById(id);
     }
 
     public List<Issue> issueList(){
-        return issueRepository.getAllIssue();
+        return issueRepository.findAll();
     }
 
     public Book getIssueBook(){
-        return bookRepository.getBookById(issue.getBookId());
+        return bookRepository.findBookById(issue.getBookId());
     }
 
     public Reader getIssueReader(){
-        return readerRepository.getReaderById(issue.getReaderId());
+        return readerRepository.findReaderById(issue.getReaderId());
+    }
+
+    public void removeIssueById(long id){
+        issueRepository.deleteIssueById(id);
+    }
+
+    public void saveIssue(Issue issue){
+        issueRepository.save(issue);
     }
 }

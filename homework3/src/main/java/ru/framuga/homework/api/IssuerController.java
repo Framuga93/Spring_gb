@@ -2,16 +2,16 @@ package ru.framuga.homework.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.framuga.homework.model.Issue;
-import ru.framuga.homework.repository.IssueRepository;
+import ru.framuga.homework.model.IssueRequest;
 import ru.framuga.homework.service.IssuerService;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -40,7 +40,9 @@ public class IssuerController {
 
   @PutMapping("/{id}")
   public void returnBook(@PathVariable long id){
-    service.findIssueById(id).setReturnedAt(LocalDateTime.now());
+    Issue issue = service.findIssueById(id);
+    issue.setReturnedAt(LocalDateTime.now());
+    service.saveIssue(issue);
   }
 
   @GetMapping("/{id}")
@@ -48,5 +50,9 @@ public class IssuerController {
     return service.findIssueById(id);
   }
 
+  @GetMapping("/all")
+  public List<Issue> getAllIssue(){
+    return service.issueList();
+  }
 
 }

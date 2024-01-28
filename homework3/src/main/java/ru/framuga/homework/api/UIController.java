@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import ru.framuga.homework.repository.IssueRepository;
 import ru.framuga.homework.service.BookService;
 import ru.framuga.homework.service.IssuerService;
 import ru.framuga.homework.service.ReaderService;
