@@ -1,5 +1,6 @@
 package ru.framuga.homework.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class IssuerController {
 
 
   @PostMapping
+  @Operation(summary = "create issue", description = "Выдать книгу читателю")
   public ResponseEntity<Issue> issueBook(@RequestBody IssueRequest request) {
     log.info("Получен запрос на выдачу: readerId = {}, bookId = {}", request.getReaderId(), request.getBookId());
 
@@ -39,6 +41,7 @@ public class IssuerController {
   }
 
   @PutMapping("/{id}")
+  @Operation(summary = "return book", description = "Вернуть книгу от читателя")
   public void returnBook(@PathVariable long id){
     Issue issue = service.findIssueById(id);
     issue.setReturnedAt(LocalDateTime.now());
@@ -46,11 +49,15 @@ public class IssuerController {
   }
 
   @GetMapping("/{id}")
+  @Operation(summary = "get issue by Id", description = "Находит и возвращает " +
+          "выдачу книги по ID")
   public Issue getIssue(@PathVariable long id){
     return service.findIssueById(id);
   }
 
   @GetMapping("/all")
+  @Operation(summary = "get all issues by Id", description = "Находит и возвращает " +
+          "все выдачи книг")
   public List<Issue> getAllIssue(){
     return service.issueList();
   }
