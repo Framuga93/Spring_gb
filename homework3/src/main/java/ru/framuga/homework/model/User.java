@@ -3,6 +3,7 @@ package ru.framuga.homework.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,5 +26,5 @@ public class User {
             name = "users_role",
             joinColumns = @JoinColumn(name = "users_login"),
             inverseJoinColumns = @JoinColumn(name = "roles_name"))
-    Set<Roles> roles;
+    List<Roles> roles;
 }

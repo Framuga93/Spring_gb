@@ -21,20 +21,20 @@ public class UIController {
     @GetMapping("/ui/books")
     public String listBooks(Model model){
         model.addAttribute("book", bookService.bookList());
-        return "UI/books";
+        return "books";
     }
 
     @GetMapping("/ui/readers")
     public String listReaders(Model model){
         model.addAttribute("reader", readerService.readerList());
-        return "UI/readers";
+        return "readers";
     }
 
     @GetMapping("/ui/issue")
     public String issueTable(Model model){
         model.addAttribute("issue", issuerService.issueList());
         model.addAttribute("issueService", issuerService);
-        return "UI/issue";
+        return "issue";
     }
 
     @GetMapping("/ui/reader/{id}")

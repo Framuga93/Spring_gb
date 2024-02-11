@@ -10,6 +10,7 @@ import ru.framuga.homework.model.User;
 import ru.framuga.homework.repository.RoleRepository;
 import ru.framuga.homework.repository.UserRepository;
 
+
 import java.util.stream.Collectors;
 
 
@@ -18,16 +19,16 @@ import java.util.stream.Collectors;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь" + username + "не найден"));
 
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), user.getRoles()
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(),
+                user.getRoles()
                 .stream()
                 .map(it -> new SimpleGrantedAuthority(it.getName()))
                 .collect(Collectors.toList()));
+
     }
 }

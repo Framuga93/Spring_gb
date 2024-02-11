@@ -14,6 +14,7 @@ import ru.framuga.homework.repository.ReaderRepositoryJPA;
 import ru.framuga.homework.repository.RoleRepository;
 import ru.framuga.homework.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -93,7 +94,7 @@ public class Application {
     private static void saveUser(UserRepository repository, RoleRepository roleRepository, String
             login, List<String> rolesList) {
         User user = new User();
-        Set<Roles> roles = new java.util.HashSet<>(Collections.emptySet());
+        List<Roles> roles = new ArrayList<>();
         rolesList.forEach(it -> roles.add(roleRepository
                 .findByName(it)
                 .orElseThrow(RuntimeException::new)));

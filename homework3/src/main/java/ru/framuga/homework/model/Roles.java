@@ -3,6 +3,7 @@ package ru.framuga.homework.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,5 +19,5 @@ public class Roles {
     private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    Set<User> users;
+    List<User> users;
 }
