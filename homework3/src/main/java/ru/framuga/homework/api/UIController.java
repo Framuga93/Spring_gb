@@ -5,10 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import ru.framuga.homework.aspect.annotation.Timer;
 import ru.framuga.homework.service.BookService;
 import ru.framuga.homework.service.IssuerService;
 import ru.framuga.homework.service.ReaderService;
-
+@Timer
 @Controller
 @RequiredArgsConstructor
 public class UIController {
@@ -16,6 +17,7 @@ public class UIController {
     private final BookService bookService;
     private final ReaderService readerService;
     private final IssuerService issuerService;
+
 
 
     @GetMapping("/ui/books")
