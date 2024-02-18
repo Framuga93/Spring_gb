@@ -28,7 +28,7 @@ public class Application {
      * className - methodName #(количество секунд выполнения)
      *
      * 2.* Создать аннотацию RecoverException, которую можно ставить только над методами.
-     *
+     *им
      *   @interface RecoverException {
      *     Class<? extends RuntimeException>[] noRecoverFor() default {};
      *   }
