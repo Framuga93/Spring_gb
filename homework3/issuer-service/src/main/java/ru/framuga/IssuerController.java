@@ -1,4 +1,4 @@
-package ru.framuga.homework.api;
+package ru.framuga;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -6,9 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.framuga.homework.model.Issue;
-import ru.framuga.homework.model.IssueRequest;
-import ru.framuga.homework.service.IssuerService;
 
 
 import java.time.LocalDateTime;

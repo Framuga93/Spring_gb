@@ -1,7 +1,7 @@
-package ru.framuga.homework.repository;
+package ru.framuga;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.framuga.homework.model.Reader;
+
 
 public interface ReaderRepositoryJPA extends JpaRepository<Reader, Long> {
 

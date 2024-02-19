@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import ru.framuga.homework.model.Book;
 import ru.framuga.homework.model.Reader;
 import ru.framuga.homework.model.Roles;
@@ -15,9 +14,7 @@ import ru.framuga.homework.repository.RoleRepository;
 import ru.framuga.homework.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class Application {

@@ -1,9 +1,8 @@
-package ru.framuga.homework.model;
+package ru.framuga;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 

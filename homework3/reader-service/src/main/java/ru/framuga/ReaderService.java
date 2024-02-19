@@ -1,12 +1,7 @@
-package ru.framuga.homework.service;
+package ru.framuga;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.framuga.homework.aspect.annotation.Timer;
-import ru.framuga.homework.model.Issue;
-import ru.framuga.homework.model.Reader;
-import ru.framuga.homework.repository.IssueRepositoryJPA;
-import ru.framuga.homework.repository.ReaderRepositoryJPA;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,19 +11,14 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ReaderService {
 
-    private final IssueRepositoryJPA issueRepository;
+    private final IssueProvider issueProvider;
     private final ReaderRepositoryJPA readerRepository;
 
 
     public List<Issue> readerIssue(Reader reader) {
-        return issueRepository.findAll().stream()
+        return issueProvider.getAllIssue().stream()
                 .filter(it -> Objects.equals(it.getReaderId(), reader.getId()))
                 .toList();
-    }
-
-    @Timer
-    public List<Reader> readerList() {
-        return readerRepository.findAll();
     }
 
     public Reader findReaderById(long id) {
