@@ -2,10 +2,12 @@ package ru.framuga;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookRepositoryJPA extends JpaRepository<Book, Long> {
+import java.util.UUID;
 
-        Book findBookById(long id);
+public interface BookRepositoryJPA extends JpaRepository<Book, UUID> {
 
-        void deleteBookById(long id);
+        Book findBookById(UUID id);
+
+        void deleteBookById(UUID id);
 
 }

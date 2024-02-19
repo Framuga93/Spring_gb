@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Service
@@ -21,11 +22,11 @@ public class ReaderService {
                 .toList();
     }
 
-    public Reader findReaderById(long id) {
+    public Reader findReaderById(UUID id) {
         return readerRepository.findReaderById(id);
     }
 
-    public void removeReaderFromRep(long id) {
+    public void removeReaderFromRep(UUID id) {
         readerRepository.deleteReaderById(id);
     }
 
@@ -33,4 +34,7 @@ public class ReaderService {
         readerRepository.save(requestReader);
     }
 
+    public List<Reader> getAllReaders() {
+        return readerRepository.findAll();
+    }
 }

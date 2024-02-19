@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,29 +24,31 @@ public class IssuerService {
 
     Issue issue;
     public Issue issue(IssueRequest request) {
-        if (bookProvider.getBookById(request.getBookId()) == null) {
+        Book requestBook = bookProvider.getBookById(request.getBookId());
+        Reader requestReader = readerProvider.getReaderById(request.getReaderId());
+        if (requestBook == null) {
             throw new NoSuchElementException("Не найдена книга с идентификатором \"" + request.getBookId() + "\"");
         }
-        if (readerProvider.getReaderById(request.getReaderId()) == null) {
+        if (requestReader == null) {
             throw new NoSuchElementException("Не найден читатель с идентификатором \"" + request.getReaderId() + "\"");
         }
         if (issueRepository.findAll().stream()
                 .filter(issue -> issue.getReturnedAt() == null)
-                .map(Issue::getReaderId)
-                .filter(it -> it.equals(request.getReaderId()))
+                .map(Issue::getReader)
+                .filter(it -> it.equals(requestReader))
                 .toList()
                 .size() >= maxBookCapacity) {
             throw new RuntimeException("У читателя превышен лимит книг");
         }
         issue = new Issue();
-        issue.setBookId(request.getBookId());
-        issue.setReaderId(request.getReaderId());
+        issue.setBook(requestBook);
+        issue.setReader(requestReader);
         issue.setIssueAt(LocalDateTime.now());
         issueRepository.save(issue);
         return issue;
     }
 
-    public Issue findIssueById(long id){
+    public Issue findIssueById(UUID id){
         return issueRepository.findIssueById(id);
     }
 
@@ -53,7 +56,7 @@ public class IssuerService {
         return issueRepository.findAll();
     }
 
-    public void removeIssueById(long id){
+    public void removeIssueById(UUID id){
         issueRepository.deleteIssueById(id);
     }
 

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "reader")
@@ -15,12 +16,11 @@ public class Reader {
 
   @Id
   @Schema(name = "Идентификатор")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
   @Schema(name = "Имя читателя")
   @Column
   private String name;
 
-  // List<Book>
 }

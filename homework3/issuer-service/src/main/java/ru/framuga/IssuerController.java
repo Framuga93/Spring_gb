@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class IssuerController {
 
   @PutMapping("/{id}")
   @Operation(summary = "return book", description = "Вернуть книгу от читателя")
-  public void returnBook(@PathVariable long id){
+  public void returnBook(@PathVariable UUID id){
     Issue issue = service.findIssueById(id);
     issue.setReturnedAt(LocalDateTime.now());
     service.saveIssue(issue);
@@ -48,7 +49,7 @@ public class IssuerController {
   @GetMapping("/{id}")
   @Operation(summary = "get issue by Id", description = "Находит и возвращает " +
           "выдачу книги по ID")
-  public Issue getIssue(@PathVariable long id){
+  public Issue getIssue(@PathVariable UUID id){
     return service.findIssueById(id);
   }
 

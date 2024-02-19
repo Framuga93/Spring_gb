@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -19,13 +22,13 @@ public class BookController {
     @GetMapping("/{id}")
     @Operation(summary = "get book by Id", description = "Находит и возвращает " +
             "книгу по ID")
-    public Book getBookById(@PathVariable("id") long id){
+    public Book getBookById(@PathVariable("id") UUID id){
         return bookService.findBookByID(id);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "delete book from repository", description = "Удалить книгу из репозитория по ID")
-    public void deleteBook(@PathVariable("id") long id){
+    public void deleteBook(@PathVariable("id") UUID id){
         bookService.removeBookFromRep(id);
         log.info("Книга " + bookService.findBookByID(id).getName()+" удалена из репозитория");
     }
@@ -35,6 +38,11 @@ public class BookController {
     public void createBook(@RequestBody Book requestBook){
         bookService.addBookToRep(requestBook);
         log.info("Создана книга: bookName = {}", requestBook.getName());
+    }
+
+    @GetMapping("/all")
+    public List<Book> getAllBooks(){
+        return bookService.getAllBooks();
     }
 
 }

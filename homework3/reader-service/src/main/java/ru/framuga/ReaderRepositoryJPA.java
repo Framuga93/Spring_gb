@@ -2,11 +2,13 @@ package ru.framuga;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.UUID;
 
-public interface ReaderRepositoryJPA extends JpaRepository<Reader, Long> {
 
-        Reader findReaderById(long id);
+public interface ReaderRepositoryJPA extends JpaRepository<Reader, UUID> {
 
-        void deleteReaderById(long id);
+        Reader findReaderById(UUID id);
+
+        void deleteReaderById(UUID id);
 
 }

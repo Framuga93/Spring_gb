@@ -2,6 +2,8 @@ package ru.framuga;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 /**
  * Запрос на выдачу
  */
@@ -11,11 +13,11 @@ public class IssueRequest {
   /**
    * Идентификатор читателя
    */
-  private long readerId;
+  private UUID readerId;
 
   /**
    * Идентификатор книги
    */
-  private long bookId;
+  private UUID bookId;
 
 }

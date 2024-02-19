@@ -6,6 +6,8 @@ import org.springframework.cloud.loadbalancer.core.ReactorLoadBalancer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.UUID;
+
 @Service
 public class ReaderProvider {
     private final WebClient webClient;
@@ -16,13 +18,13 @@ public class ReaderProvider {
                 .build();
     }
 
-    public Long getReaderById(long id) {
+    public Reader getReaderById(UUID id) {
         Reader reader = webClient.get()
                 .uri("http://reader-service/reader/"+id)
                 .retrieve()
                 .bodyToMono(Reader.class)
                 .block();
-        return reader.getId();
+        return reader;
     }
 
 }

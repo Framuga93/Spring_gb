@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Запись о факте выдачи книги (в БД)
@@ -17,16 +18,20 @@ public class Issue {
 
   @Id
   @Schema(name = "Идентификатор")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
+  @OneToOne
+  @JoinColumn(name = "bookId")
   @Schema(name = "Идентификатор книги")
-  @Column(name = "bookId")
-  private Long bookId;
+//  @Column(name = "bookId")
+  private Book book;
 
+  @OneToOne
+  @JoinColumn(name = "readerId")
   @Schema(name = "Идентификатор читателя")
-  @Column(name = "readerId")
-  private Long readerId;
+//  @Column(name = "readerId")
+  private Reader reader;
 
   @Schema(name = "Дата выдачи")
   @Column(name = "issueAt")

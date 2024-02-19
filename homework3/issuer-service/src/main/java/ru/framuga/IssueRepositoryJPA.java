@@ -3,10 +3,12 @@ package ru.framuga;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IssueRepositoryJPA extends JpaRepository<Issue, Long> {
+import java.util.UUID;
 
-        Issue findIssueById(long id);
+public interface IssueRepositoryJPA extends JpaRepository<Issue, UUID> {
 
-        void deleteIssueById(long id);
+        Issue findIssueById(UUID id);
+
+        void deleteIssueById(UUID id);
 
 }
