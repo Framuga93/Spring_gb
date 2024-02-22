@@ -1,4 +1,4 @@
-package ru.framuga.homework.security;
+package ru.framuga.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

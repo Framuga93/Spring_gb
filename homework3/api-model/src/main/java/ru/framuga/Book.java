@@ -3,8 +3,6 @@ package ru.framuga;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
-
 import java.util.UUID;
 
 @Entity
@@ -22,4 +20,12 @@ public class Book {
     @Column(name = "name")
     private String name;
 
+    public Book(String name) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public Book() {
+
+    }
 }

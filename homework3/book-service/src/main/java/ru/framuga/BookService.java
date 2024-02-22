@@ -2,9 +2,11 @@ package ru.framuga;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.ls.LSException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -12,19 +14,30 @@ import java.util.UUID;
 public class BookService {
     private final BookRepositoryJPA bookRepository;
 
-    public Book findBookByID(UUID id){
-        return bookRepository.findBookById(id);
+    public Book findBookByID(UUID id) {
+        Book responseBook = bookRepository.findBookById(id);
+        if (responseBook == null)
+            throw new NoSuchElementException("Такая книга не найдена");
+        return responseBook;
     }
 
-    public void removeBookFromRep(UUID id){
+    @Transactional
+    public Book removeBookFromRep(UUID id) {
+        Book book = findBookByID(id);
         bookRepository.deleteBookById(id);
+        return book;
     }
 
-    public List<Book> getAllBooks(){
-        return bookRepository.findAll();
+    public List<Book> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        if (books.size() < 1)
+            throw new NoSuchElementException("Список книг пуст");
+        return books;
     }
 
-    public void addBookToRep(Book requestBook){
-        bookRepository.save(requestBook);
+    public Book addBookToRep(Book requestBook) {
+        if(requestBook.getId() == null && requestBook.getName() == null)
+            throw new NullPointerException("При создании книги не может быть значения null");
+        return bookRepository.save(requestBook);
     }
 }

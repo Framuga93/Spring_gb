@@ -1,4 +1,4 @@
-package ru.framuga.homework.security;
+package ru.framuga.security;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

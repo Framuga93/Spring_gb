@@ -1,4 +1,4 @@
-package ru.framuga.homework.security;
+package ru.framuga.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -6,9 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import ru.framuga.homework.model.User;
-import ru.framuga.homework.repository.RoleRepository;
-import ru.framuga.homework.repository.UserRepository;
+import ru.framuga.model.User;
+import ru.framuga.repository.UserRepository;
 
 
 import java.util.stream.Collectors;

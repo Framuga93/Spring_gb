@@ -1,7 +1,7 @@
-package ru.framuga.homework.repository;
+package ru.framuga.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.framuga.homework.model.Roles;
+import ru.framuga.model.Roles;
 
 import java.util.Optional;
 

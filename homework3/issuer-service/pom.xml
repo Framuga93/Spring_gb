@@ -24,6 +24,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
@@ -54,6 +58,11 @@
             <groupId>ru.framuga</groupId>
             <artifactId>api-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.bj-tydic</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 

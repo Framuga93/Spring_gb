@@ -1,4 +1,4 @@
-package ru.framuga.homework.api;
+package ru.framuga.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,7 @@ import ru.framuga.homework.aspect.annotation.Timer;
 import ru.framuga.homework.service.BookService;
 import ru.framuga.homework.service.IssuerService;
 import ru.framuga.homework.service.ReaderService;
-@Timer
+
 @Controller
 @RequiredArgsConstructor
 public class UIController {
