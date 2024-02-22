@@ -2,8 +2,10 @@ package ru.framuga;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,15 +19,23 @@ public class ReaderService {
 
 
     public List<Issue> readerIssue(Reader reader) {
-        return issueProvider.getAllIssue().stream()
-                .filter(it -> Objects.equals(it.getReaderId(), reader.getId()))
+        List<Issue> readerIssueList = issueProvider.getAllIssue()
+                .stream()
+                .filter(it -> Objects.equals(it.getReader(), reader))
                 .toList();
+        if (readerIssueList.size() < 1)
+            throw new NullPointerException("У читателя нет взятых книг");
+        return readerIssueList;
     }
 
     public Reader findReaderById(UUID id) {
-        return readerRepository.findReaderById(id);
+        Reader responseReader = readerRepository.findReaderById(id);
+        if (responseReader == null)
+            throw new NoSuchElementException("Читателя с таким ID не найдено");
+        return responseReader;
     }
 
+    @Transactional
     public void removeReaderFromRep(UUID id) {
         readerRepository.deleteReaderById(id);
     }
@@ -35,6 +45,9 @@ public class ReaderService {
     }
 
     public List<Reader> getAllReaders() {
-        return readerRepository.findAll();
+        List<Reader> readers = readerRepository.findAll();
+        if(readers.size() < 1)
+            throw new NoSuchElementException("Список читателей пуст");
+        return readers;
     }
 }

@@ -21,6 +21,7 @@ class BookControllerTest {
 
     @Autowired
     WebTestClient webTestClient;
+    //todo: Подумать над использованием jdbctemplate
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired
@@ -121,7 +122,7 @@ class BookControllerTest {
     }
 
     @Test
-    void getAllBooks() {
+    void testGetAllBooks() {
 
         bookRepositoryJPA.saveAll(List.of(testBook1,testBook2));
 
@@ -135,7 +136,7 @@ class BookControllerTest {
                 .returnResult().getResponseBody();
 
         Assertions.assertEquals(expectedList.size(), responseList.size());
-
-
     }
+
+    //todo: сделать тест на getAllBooks если книг нет
 }

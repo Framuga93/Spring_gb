@@ -23,4 +23,11 @@ public class Reader {
   @Column
   private String name;
 
+  public Reader(String name) {
+    this.name = name;
+  }
+
+  public Reader() {
+
+  }
 }

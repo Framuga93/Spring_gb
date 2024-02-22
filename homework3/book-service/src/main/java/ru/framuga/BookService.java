@@ -17,15 +17,14 @@ public class BookService {
     public Book findBookByID(UUID id) {
         Book responseBook = bookRepository.findBookById(id);
         if (responseBook == null)
-            throw new NoSuchElementException("Такая книга не найдена");
+            throw new NoSuchElementException("Книги с таким ID не найдено");
         return responseBook;
     }
 
+    //todo:  узнать почему работает только с Transactional
     @Transactional
-    public Book removeBookFromRep(UUID id) {
-        Book book = findBookByID(id);
+    public void removeBookFromRep(UUID id) {
         bookRepository.deleteBookById(id);
-        return book;
     }
 
     public List<Book> getAllBooks() {
