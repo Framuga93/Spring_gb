@@ -21,6 +21,7 @@
         <module>discovery-service</module>
         <module>api-model</module>
         <module>security-service</module>
+        <module>timer-method-timer</module>
     </modules>
     <properties>
         <java.version>17</java.version>

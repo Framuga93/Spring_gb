@@ -16,3 +16,6 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+aspect:
+  timer:
+    enable-timer: true

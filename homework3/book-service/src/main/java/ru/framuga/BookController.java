@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.framuga.aspect.annotation.Timer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBook);
     }
 
+    @Timer
     @GetMapping("/all")
     public ResponseEntity<List<Book>> getAllBooks(){
         List<Book> books;
